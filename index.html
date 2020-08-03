@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pomodoro App</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body onload="mainTimer()">
+	<!-- Main -->
+	<div class="container-fluid">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 offset-md-2 text-center content">
+					<div class="main">
+						<h3 class="text-center mb-5">Pomodoro App</h3>
+						<div class="timer">
+							<h3><span id="min"></span>:<span id="sec"></span></h3>							
+							<button class="btn btn-primary" onclick="start()">start</button>
+							<a href="index.html" class="btn btn-primary">Reload</a>
+						</div>
+					</div>
+					<h3 class="text-center text-white" id="finish"></h3>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Other Libraries -->
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script>
+		var min = 25;
+		var sec = "00";
+		function mainTimer(){
+			
+			document.getElementById('min').innerHTML = min;
+			document.getElementById('sec').innerHTML = sec;
+		}
+		function start(){
+			min = 24;
+			sec = 59;
+
+			document.getElementById('min').innerHTML = min;
+			document.getElementById('sec').innerHTML = sec;
+
+			var min_interval = setInterval(minTimer, 60000);
+			var sec_interval = setInterval(secTimer, 1000);
+
+		
+		function minTimer(){
+			min = min - 1;
+			document.getElementById('min').innerHTML = min;
+		}
+
+		function secTimer(){
+			sec = sec - 1;
+			document.getElementById('sec').innerHTML = sec;
+			if(sec < 10){
+				document.getElementById('sec').innerHTML = "0" + sec;
+			} 
+			if(sec <= 0){
+				if(min <= 0){
+					clearInterval(sec_interval);
+					clearInterval(min_interval);
+				}
+				sec = 60;
+
+					document.getElementById('finish').innerHTML = "Task Finished. Kindly start another task.";
+				}
+			}
+		}
+	</script>
+</body>
+</html>
